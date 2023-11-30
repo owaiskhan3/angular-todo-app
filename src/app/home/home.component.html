@@ -1,0 +1,56 @@
+<div class="flex flex-col w-full">
+  <div class="flex align-middle justify-center mb-3">
+    <input
+      (keyup)="onChangeTodo($event)"
+      [(ngModel)]="todo"
+      placeholder="Add todo here.."
+      id="inputField"
+      class="h-10 w-2/3 bg-gray-300 mb-4 px-3"
+    />
+    <button
+      type="button"
+      (click)="editedTodo ? onEditTodo() : addTodo()"
+      class="h-10 w-1/3 bg-blue-800 text-blue-100"
+    >
+      <span class="text-blue-100">
+        {{ editedTodo ? "Edit Todo" : "Add Todo" }}
+      </span>
+    </button>
+  </div>
+  <ul class="h-auto px-5">
+    <li *ngFor="let todoToSelect of todos" class="mb-4">
+      <div class="flex justify-between">
+        <div>
+          <label
+            [ngClass]="{ completed: todoToSelect.completed === true }"
+            class="text"
+          >
+            <input
+              type="checkbox"
+              id="checkID"
+              (change)="toggleCompleted(todoToSelect)"
+              class="mr-4"
+              [defaultChecked]="todoToSelect.completed"
+            />
+            {{ todoToSelect.todo }}
+          </label>
+        </div>
+
+        <div *ngIf="!editedTodo" class="flex justify-between">
+          <button
+            (click)="editTodo(todoToSelect)"
+            class="flex align-middle justify-center pb-6 bg-blue-700 w-16 h-5 cursor-pointer rounded-md mr-5 text-white"
+          >
+            Edit
+          </button>
+          <button
+            (click)="deleteTodo(todoToSelect)"
+            class="bg-red-700 text-white w-16 h-5 pb-6 rounded-md"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
